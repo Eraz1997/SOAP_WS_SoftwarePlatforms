@@ -1,0 +1,11 @@
+<service name="CipherSolver" scope="application">
+    <description>Adder Service</description>
+     
+    <messageReceivers>
+        <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out"
+                         class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+    </messageReceivers>
+     
+    <parameter name="ServiceClass">it.unige.swplatforms.CipherSolver</parameter>
+ 
+</service>

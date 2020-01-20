@@ -1,0 +1,44 @@
+<project name="Axis2-TCPDumpService" basedir="." default="generate.aar">
+    <property environment="env"/>
+ 
+    <property name="axis2.home" value="${env.AXIS2_HOME}" />
+ 
+    <property name="dest.dir" value="build" />
+ 
+    <property name="dest.dir.classes" value="${dest.dir}/classes" />
+ 
+    <path id="build.class.path">
+        <fileset dir="${axis2.home}/lib">
+            <include name="*.jar" />
+        </fileset>
+          <pathelement location="${dest.dir.classes}" />
+    </path>
+ 
+    <target name="clean">
+        <delete dir="${dest.dir}" />
+    </target>
+ 
+    <target name="prepare">
+ 
+        <mkdir dir="${dest.dir}" />
+ 
+        <mkdir dir="${dest.dir.classes}" />
+ 
+        <mkdir dir="${dest.dir.classes}/META-INF" />
+ 
+    </target>
+ 
+    <target name="generate.aar" depends="clean,prepare">
+ 
+        <copy file="src/META-INF/services.xml"
+            tofile="${dest.dir.classes}/META-INF/services.xml" overwrite="true" />
+ 
+        <javac srcdir="src" destdir="${dest.dir.classes}"
+            includes="it/unige/swplatforms/TCPDumpService.java">
+        </javac>
+ 
+        <jar basedir="${dest.dir.classes}" destfile="${dest.dir}/TCPDumpService.aar" />
+ 
+    </target>
+ 
+</project>

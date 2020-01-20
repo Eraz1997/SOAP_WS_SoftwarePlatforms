@@ -1,30 +1,33 @@
 package it.unige.swplatforms;
-import java.time.format.DateTimeFormatter;  
-import java.time.LocalDateTime;    
-
 import java.io.File;
 import java.nio.file.Files;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;   
 
 //@WebService(endpointInterface = "it.unige.swplatforms.TCPDumpService")
 public class TCPDumpService {
-	
+
 	private Process p;
 	
 	public TCPDumpService() {
 		p = null;
 	}
-
-	private void log(String text) {
+	public void test() {
+		return;
+	}
+	
+	public void log(String text) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now();  
-		System.out.println("[" + dtf.format(now) + "] " + text);  
+		System.out.println((new String("[")).concat(dtf.format(now).concat((new String("] ")).concat(text))));
+		return;
 	}
 	
 	private boolean errorWithLog(String text) {
-		log("ERROR: " + text);
+		log((new String("[ERROR] ")).concat(text));  
 		return false;
 	}
 	
@@ -37,7 +40,7 @@ public class TCPDumpService {
 			return errorWithLog("service already started");
 		p = null;
 		try {
-			p = Runtime.getRuntime().exec("tcpdump -i " + _interface + " -w out.pcap");
+			p = Runtime.getRuntime().exec((new String("tcpdump -i ")).concat(_interface.concat(" -w out.pcap")));
 			if (!p.isAlive()) 
 				throw new IOException();
 		} catch (IOException e) {

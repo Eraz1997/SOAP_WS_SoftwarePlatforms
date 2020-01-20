@@ -29,13 +29,15 @@ public class TCPDumpService {
 	}
 	
 	//@Override
-	public boolean start() {
+	public boolean start(String _interface) {
 		log("Starting service");
+		if(_interface == null || _interface.length() == 0)
+			return errorWithLog("no interface selected");
 		if (p != null && p.isAlive())
 			return errorWithLog("service already started");
 		p = null;
 		try {
-			p = Runtime.getRuntime().exec("tcpdump -w out.pcap");
+			p = Runtime.getRuntime().exec("tcpdump -i " + _interface + " -w out.pcap");
 			if (!p.isAlive()) 
 				throw new IOException();
 		} catch (IOException e) {

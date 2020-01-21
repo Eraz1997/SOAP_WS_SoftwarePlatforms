@@ -1,0 +1,16 @@
+version: '3'
+services:
+  client:
+    build:
+      context: .
+      dockerfile: ./Client/Dockerfile
+    container_name: Client
+    volumes:
+      - ./results:/results 
+  webservice:
+    build:
+      context: .
+      dockerfile: ./WebService/Dockerfile
+    ports:
+      - "8081:8080"
+    container_name: webservice
